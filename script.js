@@ -21,6 +21,7 @@ const mainEl = document.querySelector('.main');
 const startScreenEl = document.getElementById('start-screen');
 const gameEl = document.getElementById('game');
 const rulesPanelEl = document.getElementById('rules-panel');
+const rulesCloseBtn = document.getElementById('rules-close');
 const winnerMessageEl = document.getElementById('winner-message');
 const confettiContainer = document.getElementById('confetti-container');
 const turnEl0 = document.getElementById('turn--0');
@@ -188,6 +189,19 @@ btnMenu.addEventListener('click', () => {
 btnMenuNew.addEventListener('click', initGame);
 btnMenuRules.addEventListener('click', () => {
   rulesPanelEl.classList.toggle('is-open');
+});
+
+rulesCloseBtn.addEventListener('click', () => {
+  rulesPanelEl.classList.remove('is-open');
+});
+
+document.addEventListener('click', (event) => {
+  const clickedPanel = rulesPanelEl.contains(event.target);
+  const clickedRulesBtn = btnRules.contains(event.target);
+  const clickedMenuRulesBtn = btnMenuRules.contains(event.target);
+  if (!clickedPanel && !clickedRulesBtn && !clickedMenuRulesBtn) {
+    rulesPanelEl.classList.remove('is-open');
+  }
 });
 
 document.addEventListener('click', (event) => {

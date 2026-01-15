@@ -102,6 +102,17 @@ main.is-started::before {
   display: none;
 }
 
+.rules-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  border: none;
+  background: transparent;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #444;
+}
+
 .rules-heading {
   margin-bottom: 1.2rem;
   font-size: 1.8rem;
@@ -150,7 +161,7 @@ main.is-started::before {
 
 .player {
   flex: 50%;
-  padding: 9rem;
+  padding: 5rem 9rem 9rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -295,16 +306,16 @@ main.is-started::before {
 
 .btn--menu {
   display: block;
-  left: 2rem;
+  left: 50%;
   top: 2rem;
-  --menu-shift-x: 0;
+  --menu-shift-x: -50%;
   transform: translateX(var(--menu-shift-x));
   transition: box-shadow 0.2s;
 }
 
 .menu-panel {
   position: absolute;
-  left: 2rem;
+  left: 50%;
   top: 7rem;
   display: none;
   flex-direction: column;
@@ -314,6 +325,7 @@ main.is-started::before {
   border-radius: 999px;
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  transform: translateX(-50%);
 }
 
 .menu-panel.is-open {
