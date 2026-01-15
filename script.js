@@ -8,6 +8,11 @@ const btnNew = document.querySelector('.btn--new');
 const btnHold = document.querySelector('.btn--hold');
 const btnStart = document.querySelector('.btn--start');
 const btnAgain = document.getElementById('btn-again');
+const btnRules = document.querySelector('.btn--rules');
+const btnMenu = document.querySelector('.btn--menu');
+const menuPanelEl = document.getElementById('menu-panel');
+const btnMenuNew = document.querySelector('.btn--menu-new');
+const btnMenuRules = document.querySelector('.btn--menu-rules');
 const currentEl0 = document.getElementById('current--0');
 const currentEl1 = document.getElementById('current--1');
 const playerEl0 = document.querySelector('.player--0');
@@ -27,6 +32,17 @@ let activePlayer = 0;
 let playing = true;
 let confettiTimerId = null;
 
+const controlsEl = document.getElementById('controls');
+const updateControlsSide = function () {
+  if (activePlayer === 0) {
+    playerEl0.appendChild(controlsEl);
+  } else {
+    playerEl1.appendChild(controlsEl);
+  }
+  controlsEl.classList.toggle('controls--p0', activePlayer === 0);
+  controlsEl.classList.toggle('controls--p1', activePlayer === 1);
+};
+
 const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   currentScore = 0;
@@ -35,6 +51,7 @@ const switchPlayer = function () {
   playerEl1.classList.toggle('player--active');
   turnEl0.classList.toggle('hidden');
   turnEl1.classList.toggle('hidden');
+  updateControlsSide();
 };
 
 const clearConfetti = function () {
@@ -106,6 +123,7 @@ const initGame = function () {
   mainEl.classList.remove('is-gameover');
   clearConfetti();
   gameEl.classList.add('is-visible');
+  updateControlsSide();
 };
 
 const startGame = function () {
@@ -117,6 +135,7 @@ const startGame = function () {
     startScreenEl.classList.add('hidden');
     gameEl.classList.remove('hidden');
     rulesPanelEl.classList.remove('hidden');
+    rulesPanelEl.classList.remove('is-open');
     btnNew.classList.remove('hidden');
     window.requestAnimationFrame(() => {
       gameEl.classList.add('is-visible');
@@ -160,5 +179,23 @@ btnHold.addEventListener('click', holdScore);
 btnNew.addEventListener('click', initGame);
 btnStart.addEventListener('click', startGame);
 btnAgain.addEventListener('click', initGame);
+btnRules.addEventListener('click', () => {
+  rulesPanelEl.classList.toggle('is-open');
+});
+btnMenu.addEventListener('click', () => {
+  menuPanelEl.classList.toggle('is-open');
+});
+btnMenuNew.addEventListener('click', initGame);
+btnMenuRules.addEventListener('click', () => {
+  rulesPanelEl.classList.toggle('is-open');
+});
+
+document.addEventListener('click', (event) => {
+  const clickedMenu = menuPanelEl.contains(event.target);
+  const clickedButton = btnMenu.contains(event.target);
+  if (!clickedMenu && !clickedButton) {
+    menuPanelEl.classList.remove('is-open');
+  }
+});
 
 document.body.classList.add('is-start');
